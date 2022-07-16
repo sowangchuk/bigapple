@@ -1,0 +1,48 @@
+
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+
+  
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-9 order-2">
+                <div class="row mb-5">
+                    {% for x in user %}
+        <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+            <div class="block-4 text-center border">
+                <figure class="block-4-image">
+                    <a href="{{ product.get_absolute_url }}">
+                        {% if x.image %}
+                        <img src="{{ x.image.url }}" 
+                            alt="Image placeholder" class="img-fluid" style="height: 200px;" alt="Responsive image">
+                        {%endif%}
+                        </a>
+                </figure>
+                <div class="block-4-text p-4">
+                    <h3><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></h3>
+                    <p class="mb-0">{{ x.description }}</p>
+                    <p class="text-primary font-weight-bold">Nu{{ x.price }}</p>
+                </div>
+              
+            </div>
+        </div>
+        {% endfor %}
+                </div>
+                
+                
+            </div>
+           
+        </div>
+    </div>
+</div>
+  
+     
+
+    
+
+    {% endblock %}

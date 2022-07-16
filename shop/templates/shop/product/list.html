@@ -1,0 +1,102 @@
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="{% url 'shop:home' %}">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black text-white">Shop</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-9 order-2">
+                <div class="row mb-5">
+                    {% for product in service %}
+                    <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+                        <div class="block-4 text-center border">
+                            <figure class="block-4-image">
+                                <a href="{{ product.get_absolute_url }}">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" 
+                                        alt="Image placeholder" class="img-fluid" style="height: 200px;" alt="Responsive image">
+                                    {%endif%}
+                                    </a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                                <p class="mb-0">{{ product.description }}</p>
+                                <p class="text-primary font-weight-bold">Nu{{ product.price }}</p>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="row" data-aos="fade-up">
+                    <div class="col-md-12 text-center">
+                        <div >
+                          <ul class="pagination">
+                                  {% if service.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="/product_list/?page=1"  tabindex="-1"aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                      <span >First</span>
+                                    </a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="/product_list/?page={{service.previous_page_number}}"  tabindex="-1"aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                      <span >Previous</span>
+                                    </a>
+                                  </li>
+                                  {% endif %}
+                            
+                                  {% for n in totalpagelist%}
+                                  <li class="page-item"><a class="page-link" href="/product_list/?page={{n}}">{{n}}</a></li>
+                                  {% endfor %}
+                                    {% if service.has_next %}
+                                    <a class="page-link" href="/product_list/?page={{service.next_page_number}}" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span >Next</span> 
+                                      <!-- class="sr-only" -->
+                                    </a>
+                                    <a class="page-link" href="/product_list/?page={{lastpage}}" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                      <span >last</span> 
+                                      <!-- class="sr-only" -->
+                                    </a>
+                                    {% endif %}
+                                  </li>
+                                </ul>
+                             
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 order-1 mb-5 mb-md-0">
+                <div class="border p-4 rounded mb-4">
+                    <h3 class="mb-3 h6 text-uppercase text-white d-block">Categories</h3>
+                    <ul class="list-unstyled mb-0">
+                        <li {% if not category %} class="mb-1" {% endif %}>
+                            <a href="{% url "shop:product_list" %}" class="d-flex"><span>All</a>
+                        </li>
+                        {% for c in categories %}
+                        <li {% if category.slug == c.slug %} class="mb-1" {% endif %}>
+                            <a href="{{ c.get_absolute_url }}" class="d-flex">{{ c.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

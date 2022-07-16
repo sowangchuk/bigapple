@@ -1,0 +1,107 @@
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Your shopping cart
+{% endblock %}
+{% block content %}
+
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="{% url 'shop:home' %}">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black Delete text-white">Cart</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail" style="color:white;">Image</th>
+                                <th class="product-name" style="color:white;">Product</th>
+                                <th class="product-price" style="color:white;">Price</th>
+                                <th class="product-quantity" style="color:white;">Quantity</th>
+                                <th class="product-total" style="color:white;">Total</th>
+                                <th class="product-remove" style="color:white;">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>{% for item in cart %}
+                                {% with product=item.product %}
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <img src="{{ product.image.url }}" alt="Image" class="img-fluid">
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-white">{{ product.name }}</h2>
+                                </td>
+                                <td  style="color:white;">Nu{{ item.price }}</td>
+                                <td>
+                                    
+                                 <h4 class="text-white" style="text-align: center;">{{ item.quantity }}</h4>
+                                  
+                                </td>
+                                <td style="color:white;">Nu{{ item.total_price }}</td>
+                                <td><a href="{% url "cart:cart_remove" product.id %}"
+                                        class="btn btn-primary btn-sm">Delete</a></td>
+                            </tr>
+                            {% endwith %}
+                            {% endfor %}
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <button onclick="window.location='{% url "shop:product_list" %}'" class="btn btn-primary btn-sm btn-block text-white">Continue Shopping</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-outline-primary btn-sm btn-block text-white" onclick="window.location='{% url "order:order_create" %}'">Checkout</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-6 pl-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase text-white">Cart Totals</h3>
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <span class="text-black text-white">Total</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black text-white">{{ cart.get_total_price_after_discount|floatformat:"2" }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-lg py-3 btn-block"
+                                    onclick="window.location='{% url "order:order_create" %}'">Proceed To Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

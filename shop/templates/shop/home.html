@@ -1,0 +1,193 @@
+{% extends "shop/base/base.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+<div class="container"data-aos="fade-up" data-aos-delay="" >
+  <div class="row" >
+    <div class="col-sm col-md-6 col-lg-6">
+      <div class="site-section block-3 site-blocks-2 bg-light" style="background-image: url(images/hero_1.jpg);" data-aos="fade">
+        <div class="container">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              
+            </ol>
+            <div class="carousel-inner">
+              {% for x in display2%}
+              <div class="carousel-item active">
+                {% if x.image%}
+                <img class="d-block w-100" style="height: 300px;" src="{{x.image.url}}" alt="First slide">
+            
+                {%endif%}
+                <div class="carousel-caption d-none d-md-block">
+                  <h2 style="color: black;">{{x.title}}</h2>
+                  <p style="color: black;">{{x.info}}</p>
+                </div>
+              </div>
+              {%endfor%}
+              {% for x in display1%}
+              <div class="carousel-item ">
+                {% if x.image%}
+                <img class="d-block w-100" style="height: 300px;" src="{{x.image.url}}" alt="First slide">
+                {%endif%}
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 style="color: black;">{{x.title}}</h5>
+                  <p style="color: black;">{{x.info}}</p>
+                </div>
+              </div>
+              {%endfor%}
+           
+             
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+            
+          
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-sm col-md-6 col-lg-6">
+      <div class="container">
+        <h3 class="mb-2">Finding Your Perfect Product</h3>
+          <div class=" text-center ">
+            <div class="border p-4 rounded mb-4">
+              <h3 class="mb-3 h6 text-uppercase text-white d-block">Categories</h3>
+              <p>Dynamicaly display Categories of the product</p>
+             
+              <ul class="list-unstyled mb-0">
+                  <li {% if not category %} class="mb-1" {% endif %}>
+                      <a href="{% url "shop:product_list" %}" class="d-flex"><span style="color: white ; font-size: large;">All</a>
+                  </li>
+                 
+                  <div id="accordion">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Select Your Choice
+                          </button>
+                        </h5>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          <div  {% if category.slug == c.slug %} class="mb-1" {% endif %}>
+                    
+                            {% for c in categories %}
+                            <a  href="{{ c.get_absolute_url }}" >#{{c.name }}&nbsp; &nbsp;</a>
+                            {% endfor %}
+                      
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                
+              </ul>
+              
+             
+          </div>
+            <p>
+              <a href="{% url 'shop:product_list' %}" class="btn btn-sm btn-primary">Shop Now</a>
+            </p>
+          </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+ 
+
+    <div class="site-section site-section-sm site-blocks-1">
+      <div class="container">
+        <div class="row">
+          {% for x in ser%}
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-truck"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase" style="color: white;">Free Shipping</h2>
+              <p style="color: white;">{{x.shipping}}</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-refresh2"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase" style="color: white;">Free Returns</h2>
+              <p style="color: white;">{{x.returns}}</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon mr-4 align-self-start">
+              <span class="icon-help"></span>
+            </div>
+            <div class="text">
+              <h2 class="text-uppercase" style="color: white;">Customer Support</h2>
+              <p style="color: white;">{{x.support}}</p>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section block-3 site-blocks-2 bg-light" style="background: black; color: white;">
+      <div class="container" style="background: black; color: white;">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2 style="color: rgb(255, 255, 255);">Featured Products</h2>
+          </div>
+        </div>
+        <div class="row"style="background: black; color: white;">
+          <div class="col-md-12"style="background: black; color: white;">
+            <div class="nonloop-block-3 owl-carousel">
+              {% for x in fproduct%}
+              <div class="item">
+                
+                <div class="block-4 text-center">
+                  <figure class="block-4-image">
+                    {% if x.image%}
+                    <img style="height:200px;" src="{{x.image.url}}" alt="Image placeholder" class="img-fluid">
+                    {%endif%}
+                  </figure>
+                  <div class="block-4-text p-4">
+                    
+                    <p class="mb-0" style="color: black;">{{x.name}}</p>
+                    <p class="text-primary font-weight-bold" style="color: black;">Nu.{{x.price}}</p>
+                  </div>
+                </div>
+                
+              </div>
+              {%endfor%}
+              
+              <div class="item">
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}

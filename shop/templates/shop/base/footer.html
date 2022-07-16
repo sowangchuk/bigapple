@@ -1,0 +1,36 @@
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="footer-heading mb-4" style="color: white;">Navigations</h3>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <ul class="list-unstyled">
+                                <li><a href="{% url 'shop:home' %}" style="color: white;">Home</a></li>
+                                <li><a href="{% url 'shop:product_list' %}" style="color: white;">Store</a></li>
+                                <li><a href="{% url 'cart:cart_detail' %}" style="color: white;">Shopping cart</a></li>
+                            </ul>
+                        </div>
+                  
+                    </div>
+                </div>
+             
+                <div class="col-md-6 col-lg-3 text-center">
+                    <div class="block-5 mb-5 text-center">
+                        <h3 class="footer-heading mb-4" style="color: white;">Contact Info</h3>
+                        {% for x in add%}
+                        <ul class="list-unstyled">
+                            <li class="address" style="color: white;">{{x.location}}</li>
+                            <li class="phone" style="color: white;"><a href="tel://{{x.phone}}">{{x.phone}}</a></li>
+                            <li class="email" style="color: white;">{{x.email}}</li>
+                        </ul>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="col-lg-12 " style="text-align: center;">&copy 2022 Developed by OpTech </p>
+    </footer>
+ 
