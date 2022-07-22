@@ -2,17 +2,17 @@
 
 
 import os
+import django_heroku
 import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '5yo93-8a^%idwkzxz@6gq67p2ml#sraf4=7#pqg+28mv)koo@m'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '.herokuapp.com'
+    'bigapplebrands.herokuapp.com'
 ]
 
 # Application definition
@@ -68,9 +68,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # load database from the DATABASE_URL environment variable
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd8n1m03d4ci63i', 
+        'USER': 'pxtcdilzxdlkyy', 
+        'PASSWORD': 'c67ebe49e5aa79cb0d04d156f0678797e18c1d35d990dffaffdad9b9df1c88db',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com', 
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -117,7 +124,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-
+django_heroku.settings(locals())
 #Crispy templates for form rendering
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

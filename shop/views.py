@@ -17,7 +17,7 @@ def product_list(request, category_slug=None):
     
 
     artpost = products.all()
-    paginator = Paginator(artpost, per_page=2)
+    paginator = Paginator(artpost, per_page=6)
     page_object = request.GET.get('page')
     service = paginator.get_page(page_object)
     totalpage = service.paginator.num_pages

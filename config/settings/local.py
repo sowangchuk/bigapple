@@ -11,7 +11,7 @@ SECRET_KEY = '5yo93-8a^%idwkzxz@6gq67p2ml#sraf4=7#pqg+28mv)koo@m'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['bigapplebrands.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -63,14 +63,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd8n1m03d4ci63i', 
+        'USER': 'pxtcdilzxdlkyy', 
+        'PASSWORD': 'c67ebe49e5aa79cb0d04d156f0678797e18c1d35d990dffaffdad9b9df1c88db',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com', 
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
