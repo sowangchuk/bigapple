@@ -1,4 +1,1 @@
 
-distlib==0.3.5
-Django==4.0.6
-
